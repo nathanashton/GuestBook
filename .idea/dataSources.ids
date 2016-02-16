@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - GuestBook@localhost" uuid="41ffa069-af7d-42e6-ab7d-b4e0d73aec9a">
+    <database-info product="MySQL" version="5.6.21" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="GuestBook"/>
+    <table name="Access" schema="" catalog="GuestBook" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Code" sqlType="CHAR" precision="4" scale="0" nullable="false" jdbcType="1"/>
+      <column name="Staff" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7" def="YicwJw=="/>
+      <column name="Staff_Id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="Guest_Id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+      <foreign-key name="fk_AccessID_Guest1" columns="Guest_Id" ref-table="Guest" ref-schema="" ref-catalog="GuestBook" ref-columns="Id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_AccessID_Staff1" columns="Staff_Id" ref-table="Staff" ref-schema="" ref-catalog="GuestBook" ref-columns="Id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_AccessID_Guest1_idx" unique="false" columns="Guest_Id"/>
+      <index name="fk_AccessID_Staff1_idx" unique="false" columns="Staff_Id"/>
+    </table>
+    <table name="Guest" schema="" catalog="GuestBook" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="FirstName" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="LastName" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Gender" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1"/>
+      <column name="Email" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Address" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Suburb_Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="Id,Suburb_Id"/>
+      <foreign-key name="fk_Guest_Suburb1" columns="Suburb_Id" ref-table="Suburb" ref-schema="" ref-catalog="GuestBook" ref-columns="Id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_AccessID_Guest1" table="Access" schema="" catalog="GuestBook" columns="Guest_Id"/>
+      <exported-key name="fk_Rating_Guest1" table="Rating" schema="" catalog="GuestBook" columns="Guest_Id"/>
+      <index name="fk_Guest_Suburb1_idx" unique="false" columns="Suburb_Id"/>
+    </table>
+    <table name="MenuOption" schema="" catalog="GuestBook" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="MenuItem" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="MenuItemPrice" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+      <exported-key name="fk_Rating_MenuOption1" table="Rating" schema="" catalog="GuestBook" columns="MenuOption_Id"/>
+    </table>
+    <table name="Rating" schema="" catalog="GuestBook" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Rating" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="Comment" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="Guest_Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="MenuOption_Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="Id,Guest_Id,MenuOption_Id"/>
+      <foreign-key name="fk_Rating_Guest1" columns="Guest_Id" ref-table="Guest" ref-schema="" ref-catalog="GuestBook" ref-columns="Id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_Rating_MenuOption1" columns="MenuOption_Id" ref-table="MenuOption" ref-schema="" ref-catalog="GuestBook" ref-columns="Id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_Rating_Guest1_idx" unique="false" columns="Guest_Id"/>
+      <index name="fk_Rating_MenuOption1_idx" unique="false" columns="MenuOption_Id"/>
+    </table>
+    <table name="Staff" schema="" catalog="GuestBook" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="FirstName" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="LastName" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+      <exported-key name="fk_AccessID_Staff1" table="Access" schema="" catalog="GuestBook" columns="Staff_Id"/>
+    </table>
+    <table name="Suburb" schema="" catalog="GuestBook" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Suburb" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Postcode" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+      <exported-key name="fk_Guest_Suburb1" table="Guest" schema="" catalog="GuestBook" columns="Suburb_Id"/>
+    </table>
+  </data-source>
+</component>
